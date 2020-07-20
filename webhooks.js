@@ -35,7 +35,7 @@ handler.on('*', function (event) {
     // console.log('Received *', event);
     run_cmd('sh', ['./deploy-dev.sh'], function (text) {
         console.log(text)
-        console.log('OKOKOKOK'); //sy-log
+        console.log('OKOKOKOKOK'); //sy-log
     });
 })
 
