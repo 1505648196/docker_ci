@@ -1,11 +1,11 @@
 #!/bin/bash
-ssh root@47.98.252.43 > /dev/null 2>&1 << eeooff
+ssh root@39.108.126.63 > /dev/null 2>&1 << eeooff
 # 构建后端
 cd /root/source/docker_ci
 docker-compose
 
 eeooff
-echo done!
+echo done!  
 
 
-ssh root@47.98.252.43 "df -h"
+ssh root@39.108.126.63 "df -h"

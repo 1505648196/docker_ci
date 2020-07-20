@@ -1,6 +1,6 @@
 var http = require('http')
 var createHandler = require('github-webhook-handler')
-var handler = createHandler({ path: '/webhooks', secret: 'myHashSecret' })
+var handler = createHandler({ path: '/docker_deploy', secret: 'luozien' })
 // 上面的 secret 保持和 GitHub 后台设置的一致
 
 function run_cmd(cmd, args, callback) {
@@ -20,8 +20,9 @@ http.createServer(function (req, res) {
         res.statusCode = 404
         res.end('no such location')
     })
-}).listen(7777,() =>{
-    console.log('WebHooks Listern at 7777');
+
+}).listen(8888, () => {
+    console.log('WebHooks Listern at 8888');
 })
 
 handler.on('error', function (err) {
@@ -30,20 +31,24 @@ handler.on('error', function (err) {
 
 
 handler.on('*', function (event) {
-    console.log('Received *', event.payload.action);
-    //   run_cmd('sh', ['./deploy-dev.sh'], function(text){ console.log(text) });
+    // console.log('Received *', event.payload.action);
+    // console.log('Received *', event);
+    run_cmd('sh', ['./deploy-dev.sh'], function (text) {
+        console.log(text)
+        console.log('ok'); //sy-log
+    });
 })
- 
+
 handler.on('push', function (event) {
     console.log('Received a push event for %s to %s',
         event.payload.repository.name,
         event.payload.ref);
-        // 分支判断
-        if(event.payload.ref === 'refs/heads/master'){
-            console.log('deploy master..')
-            run_cmd('sh', ['./deploy-dev.sh'], function(text){ console.log(text) });
+    // 分支判断
+    if (event.payload.ref === 'refs/heads/master') {
+        console.log('deploy master..')
+        run_cmd('sh', ['./deploy-dev.sh'], function (text) { console.log(text) });
 
-        }
+    }
 })
 
 
