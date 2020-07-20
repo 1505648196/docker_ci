@@ -15,4 +15,4 @@ docker-compose up -d --force-recreate --build
 # 重启启动容器
 # docker stop myapp
 # docker rm myapp
-# docker run --name myapp -p 3000:3000  -d myapp:pm2   PATH=$PATH:$HOME/bin
+# docker run --name myapp -p 3000:3000  -d myapp:pm2   
